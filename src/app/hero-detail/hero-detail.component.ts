@@ -23,18 +23,28 @@ export class HeroDetailComponent implements OnInit {
     private location: Location
   ) {}
 
+
   ngOnInit() {
     this.getHero();
   }
 
+  // Get Hero informations with id (Snapshot : image of the route at the component render)
   getHero(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.heroService.getHero(id)
     .subscribe(hero => this.hero = hero);
   }
 
+  // Navigate Back to previous page (Location get previous page)
   goBack(): void {
   this.location.back();
   }
+
+
+  // Save the name of the hero
+  save(): void {
+   this.heroService.updateHero(this.hero)
+     .subscribe(() => this.goBack());
+ }
 
 }
